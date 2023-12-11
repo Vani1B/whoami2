@@ -14,6 +14,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
+                    sh "sudo su -"
                     sh "docker build -t whoami ."
                     sh "docker tag whoami:latest 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
                     sh "docker push 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
