@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     sh "docker build -t whoami ."
-                    sh "docker tag whoami:latest 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest""
+                    sh "docker tag whoami:latest 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
                     sh "docker push 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
                 }
             }
