@@ -1,11 +1,25 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCESS_KEY_ID = 'AKIA4OHZLZFFLQMPWWUR'
-        AWS_SECRET_ACCESS_KEY = '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'
+        AWS_ACCESS_KEY_ID = 'AKIA3ZLZ7WJMF7OWEA5H'
+        AWS_SECRET_ACCESS_KEY = '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'
         AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
+        stage('Clone Git Repository') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/Vani1B/whoami2.git']])
+            }
+        }
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t whoami:latest ."
+                    sh "docker tag whoami:latest 810394038872.dkr.ecr.us-east-1.amazonaws.com"
+                    sh "docker push 810394038872.dkr.ecr.us-east-1.amazonaws.com/whoami:latest"
+                }
+            }
+        }
         stage("Create an EKS Cluster") {
             steps {
                 script {
