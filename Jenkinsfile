@@ -14,11 +14,9 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    sh "whoami"
-                    sh "pwd"
-                    sh "sudo docker build -t whoami ."
-                    sh "sudo docker tag whoami:latest 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
-                    sh "sudo docker push 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
+                    sh "docker build -t whoami -f /var/lib/jenkins/workspace/project1/Dockerfile ."
+                    sh "docker tag whoami:latest 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
+                    sh "docker push 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
                 }
             }
         }
