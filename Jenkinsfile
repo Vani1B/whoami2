@@ -15,6 +15,7 @@ pipeline {
             steps {
                 script {
                     sh "docker build -t whoami -f /var/lib/jenkins/workspace/project1/Dockerfile ."
+                    sh "eval $(aws ecr get-login --no-include-email --region us-east-1)"
                     sh "docker tag whoami:latest 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
                     sh "docker push 810394038872.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo:latest"
                 }
